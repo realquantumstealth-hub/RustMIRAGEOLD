@@ -1,6 +1,11 @@
 ﻿# RustMIRAGEOLD
 
-[中文](#中文说明) | [English](#english)
+## Language / 语言
+
+| Language | Jump |
+| --- | --- |
+| 简体中文 | [查看中文](#中文说明) |
+| English | [View English](#english) |
 
 ## 中文说明
 
@@ -49,5 +54,6 @@ Current structure example:
 This project is for research archiving and defensive technical discussion only, and does not provide directly deployable sensitive capabilities.
 
 **Some keys, certificates, executable chains, and bypass/injection deliverables are sensitive and are not suitable for public release on GitHub. If you need deeper discussion, please contact our official Discord.**
+
 
 
