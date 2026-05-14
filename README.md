@@ -16,6 +16,33 @@
 - `Render/`、`mirage/`、`unity/`：渲染与业务逻辑模块
 - `freetype/`、`src/`：依赖与基础代码
 
+### 反作弊视角
+
+`RustMIRAGEOLD` 更像“历史样本库”，适合用于复盘对抗技术演进与防守策略迭代：
+
+- 观察旧方案中哪些设计易被检测、哪些设计会造成误报
+- 对比不同模块组合下的行为指纹
+- 评估历史依赖与历史流程对现代检测体系的影响
+
+### 可能作用与用途（防守用途）
+
+- 构建历史威胁画像：把旧链路映射为可检测特征库
+- 用于规则回归：验证新规则是否仍能识别旧型行为
+- 用于培训与演练：帮助团队理解攻防迭代路径
+
+### 核心原理（高层）
+
+1. 多子模块协同：认证、低层访问、渲染展示分别承担不同职责
+2. 版本沉淀：通过历史代码保留策略和实现差异
+3. 可对比性：支持按模块、按路径进行行为比对
+4. 可迁移性：把历史经验迁移到新一代检测框架
+
+### 防守研究建议
+
+- 对历史模块建立“风险标签”并绑定可观测证据
+- 将历史样本纳入持续回归测试
+- 对不可复用的旧链路明确废弃和隔离策略
+
 ### 研究目标
 
 - 归档历史方案，便于版本对比与技术演进复盘
@@ -41,6 +68,33 @@ Current structure example:
 - `kernel/`, `KDMapper/`, `bypass/`: low-level research and historical experiment modules
 - `Render/`, `mirage/`, `unity/`: rendering and domain logic modules
 - `freetype/`, `src/`: dependencies and base code
+
+### Anti-Cheat Perspective
+
+`RustMIRAGEOLD` is best treated as a historical sample library for reviewing adversarial evolution and defensive iteration:
+
+- Identify which legacy designs are detectable and which cause false positives
+- Compare behavioral fingerprints across module combinations
+- Assess how legacy dependencies/workflows affect modern detection systems
+
+### Potential Value and Use Cases (Defensive)
+
+- Build historical threat profiles mapped to observable indicators
+- Run rule-regression checks against legacy behavior classes
+- Use for training and tabletop exercises on attack-defense evolution
+
+### Core Principles (High Level)
+
+1. Multi-submodule collaboration across auth, low-level access, and rendering
+2. Version sedimentation that preserves strategy and implementation differences
+3. Comparability by module and path
+4. Portability of historical lessons into next-gen detection frameworks
+
+### Defensive Research Recommendations
+
+- Tag legacy modules with risk labels linked to observable evidence
+- Include legacy samples in continuous regression
+- Define explicit deprecation/isolation for non-reusable legacy chains
 
 ### Research Focus
 
@@ -183,3 +237,4 @@ Ví dụ cấu trúc:
 Dự án dùng cho lưu trữ nghiên cứu và thảo luận kỹ thuật phòng thủ.
 
 Một số khóa, chứng chỉ, chuỗi thực thi và sản phẩm bypass/injection là thông tin nhạy cảm nên không công khai trên GitHub. Nếu cần trao đổi sâu hơn, vui lòng liên hệ Discord chính thức của chúng tôi.
+
