@@ -1,242 +1,481 @@
-﻿# RustMIRAGEOLD
+# RustMIRAGEOLD
 
 > **Official Forum / 官方论坛**: https://discord.gg/qslab
 
 ## Languages
 
-[English](#en) · [中文](#zh) · [日本語](#ja) · [한국어](#ko) · [Русский](#ru) · [Українська](#uk) · [Tiếng Việt](#vi)
-
-<a id="zh"></a>
-## 中文说明
-
-`RustMIRAGEOLD` 是历史版本的反作弊研究工程集合，目录中包含多个子模块（如认证、内核相关、渲染与辅助组件）。
-
-当前结构示例：
-
-- `Auth/`：认证与鉴权相关代码
-- `kernel/`、`KDMapper/`、`bypass/`：底层研究与历史实验模块
-- `Render/`、`mirage/`、`unity/`：渲染与业务逻辑模块
-- `freetype/`、`src/`：依赖与基础代码
-
-### 反作弊视角
-
-`RustMIRAGEOLD` 更像“历史样本库”，适合用于复盘对抗技术演进与防守策略迭代：
-
-- 观察旧方案中哪些设计易被检测、哪些设计会造成误报
-- 对比不同模块组合下的行为指纹
-- 评估历史依赖与历史流程对现代检测体系的影响
-
-### 可能作用与用途（防守用途）
-
-- 构建历史威胁画像：把旧链路映射为可检测特征库
-- 用于规则回归：验证新规则是否仍能识别旧型行为
-- 用于培训与演练：帮助团队理解攻防迭代路径
-
-### 核心原理（高层）
-
-1. 多子模块协同：认证、低层访问、渲染展示分别承担不同职责
-2. 版本沉淀：通过历史代码保留策略和实现差异
-3. 可对比性：支持按模块、按路径进行行为比对
-4. 可迁移性：把历史经验迁移到新一代检测框架
-
-### 防守研究建议
-
-- 对历史模块建立“风险标签”并绑定可观测证据
-- 将历史样本纳入持续回归测试
-- 对不可复用的旧链路明确废弃和隔离策略
-
-### 研究目标
-
-- 归档历史方案，便于版本对比与技术演进复盘
-- 分析多模块工程的职责拆分与耦合关系
-- 为后续重构和规范化输出提供参考
-
-### 合规与边界
-
-本项目用于研究归档与防御技术讨论，不提供可直接用于实战的敏感能力交付。
-
-由于部分密钥、证书、可执行链路、绕过/注入成品等属敏感信息不方便在 GitHub 上公开，需要或想交流的同伴可以联系我们官方 Discord 进行深入探讨。
-
----
+[English](#en) · [中文](#zh)
 
 <a id="en"></a>
 ## English
 
-`RustMIRAGEOLD` is a legacy anti-cheat research codebase collection containing multiple submodules (authentication, kernel-related, rendering, and support components).
+### Project Overview
 
-Current structure example:
+`RustMIRAGEOLD` uses a broad multi-root layout instead of a single compact source root.
 
-- `Auth/`: authentication-related code
-- `kernel/`, `KDMapper/`, `bypass/`: low-level research and historical experiment modules
-- `Render/`, `mirage/`, `unity/`: rendering and domain logic modules
-- `freetype/`, `src/`: dependencies and base code
+The project groups together multiple root-level branches, support libraries, companion trees, and locally preserved work areas in one workspace.
 
-### Anti-Cheat Perspective
+### What This Project Does
 
-`RustMIRAGEOLD` is best treated as a historical sample library for reviewing adversarial evolution and defensive iteration:
+At a high level, `RustMIRAGEOLD` works as a multi-branch source archive and workspace. Instead of forcing every part into one main tree, it keeps several parallel areas at the root:
 
-- Identify which legacy designs are detectable and which cause false positives
-- Compare behavioral fingerprints across module combinations
-- Assess how legacy dependencies/workflows affect modern detection systems
+- authentication-related content
+- bypass/support branches
+- low-level roots
+- rendering-related roots
+- alternate implementation lines
+- bundled support libraries
+- additional side work areas
 
-### Potential Value and Use Cases (Defensive)
+This kind of layout is useful when one project history or one workspace needs to preserve multiple directions side by side instead of collapsing everything into a single unified structure.
 
-- Build historical threat profiles mapped to observable indicators
-- Run rule-regression checks against legacy behavior classes
-- Use for training and tabletop exercises on attack-defense evolution
+### High-Level Design
 
-### Core Principles (High Level)
+The project is organized by branch separation rather than by one central application root:
 
-1. Multi-submodule collaboration across auth, low-level access, and rendering
-2. Version sedimentation that preserves strategy and implementation differences
-3. Comparability by module and path
-4. Portability of historical lessons into next-gen detection frameworks
+1. major concerns are split into independent root directories
+2. specialized trees such as `Render/`, `Auth/`, and `bypass/` keep their own internal subdivision
+3. alternate lines such as `mirage/`, `miragerust/`, and `rust/` remain parallel
+4. support content such as `freetype/` and `spotify shi/` stays embedded in the same workspace
 
-### Defensive Research Recommendations
+The result is an archive-style project layout where the root directory itself acts as the main map.
 
-- Tag legacy modules with risk labels linked to observable evidence
-- Include legacy samples in continuous regression
-- Define explicit deprecation/isolation for non-reusable legacy chains
+### Root Directory Layout
 
-### Research Focus
+The root contains:
 
-- Archive legacy approaches for version comparison and evolution review
-- Analyze responsibility split and coupling across multi-module systems
-- Provide references for future refactoring and standardization
+- `Auth/`
+- `bypass/`
+- `freetype/`
+- `KDMapper/`
+- `kernel/`
+- `mirage/`
+- `miragerust/`
+- `Render/`
+- `rust/`
+- `spotify shi/`
+- `src/`
+- `unity/`
+- `README.md`
 
-### Compliance & Boundaries
+This root-level spread defines the overall shape of the project.
 
-This project is for research archiving and defensive technical discussion only, and does not provide directly deployable sensitive capabilities.
+### `Auth/`
 
-Some keys, certificates, executable chains, and bypass/injection deliverables are sensitive and are not suitable for public release on GitHub. For deeper discussion, please contact our official Discord.
+`Auth/` contains:
 
----
+- `prot/`
 
-<a id="ja"></a>
-## 日本語
+This branch is the authentication-oriented subtree of the workspace.
 
-`RustMIRAGEOLD` は過去版のアンチチート研究コードを集約したリポジトリです。認証、カーネル関連、描画、補助モジュールなどを含みます。
+### `bypass/`
 
-構成例：
+`bypass/` contains:
 
-- `Auth/`：認証関連コード
-- `kernel/`、`KDMapper/`、`bypass/`：低レベル研究・過去実験モジュール
-- `Render/`、`mirage/`、`unity/`：描画とドメインロジック
-- `freetype/`、`src/`：依存と基礎コード
+- `binary/`
+- `exploit/`
+- `hde/`
+- `utils/`
 
-### 研究目的
+It also includes visible files such as:
 
-- 旧アプローチのアーカイブと比較
-- マルチモジュール構成の責務分割と結合度分析
-- 将来のリファクタリングに向けた基礎資料化
+- `binary/bytes.h`
 
-### コンプライアンス
+This branch is one of the most internally subdivided root trees in the project.
 
-本プロジェクトは研究アーカイブと防御技術議論のみを目的とします。
+### `freetype/`
 
-鍵・証明書・実行チェーン・バイパス/インジェクション成果物などの機微情報は GitHub で公開しません。詳細は公式 Discord へご連絡ください。
+`freetype/` contains:
 
----
+- `include/`
+- `win64/`
 
-<a id="ko"></a>
-## 한국어
+Inside `include/`, the visible nested directory is:
 
-`RustMIRAGEOLD`는 구버전 안티치트 연구 코드 모음 저장소입니다. 인증, 커널 관련, 렌더링, 보조 모듈 등이 포함됩니다.
+- `freetype/`
 
-구성 예시:
+This subtree provides bundled support/dependency content directly at the workspace root.
 
-- `Auth/`: 인증 관련 코드
-- `kernel/`, `KDMapper/`, `bypass/`: 저수준 연구/과거 실험 모듈
-- `Render/`, `mirage/`, `unity/`: 렌더링 및 도메인 로직
-- `freetype/`, `src/`: 의존성 및 기본 코드
+### `KDMapper/`
 
-### 연구 목표
+`KDMapper/` is a standalone root-level module area. In the currently visible extracted tree, no deeper first-level child directories are shown.
 
-- 과거 접근 방식 아카이브 및 버전 비교
-- 멀티 모듈 구조의 책임 분리와 결합도 분석
-- 향후 리팩터링/정규화 작업을 위한 참고 자료 제공
+### `kernel/`
 
-### 준수 및 범위
+`kernel/` is a standalone root-level low-level area.
 
-본 프로젝트는 연구 아카이브 및 방어 기술 논의를 위한 용도입니다.
+### `mirage/`
 
-키, 인증서, 실행 체인, 바이패스/인젝션 결과물 등 민감 정보는 GitHub에 공개하지 않습니다. 자세한 논의는 공식 Discord로 문의해 주세요.
+`mirage/` contains:
 
----
+- `loop/`
 
-<a id="ru"></a>
-## Русский
+This branch keeps its own internal subtree under a separate root-level area.
 
-`RustMIRAGEOLD` — коллекция legacy-кода для исследований anti-cheat. Включает подсистемы аутентификации, kernel-части, рендеринг и вспомогательные модули.
+### `miragerust/`
 
-Пример структуры:
+`miragerust/` contains:
 
-- `Auth/`: код аутентификации
-- `kernel/`, `KDMapper/`, `bypass/`: низкоуровневые исследования и исторические эксперименты
-- `Render/`, `mirage/`, `unity/`: рендеринг и доменная логика
-- `freetype/`, `src/`: зависимости и базовый код
+- `x64/`
 
-### Цели исследования
+Inside `x64/`, the visible nested directory is:
 
-- Архивирование legacy-подходов и сравнение версий
-- Анализ разделения ответственности и связности модулей
-- Подготовка базы для будущего рефакторинга
+- `Debug/`
 
-### Соответствие и ограничения
+This branch preserves its own local output-oriented subtree.
 
-Проект предназначен для архивных исследований и defensive-дискуссий.
+### `Render/`
 
-Ключи, сертификаты, исполняемые цепочки и готовые bypass/injection материалы не публикуются на GitHub. Для обсуждения используйте официальный Discord.
+`Render/` contains:
 
----
+- `imgui/`
+- `overlay/`
 
-<a id="uk"></a>
-## Українська
+This branch is clearly dedicated to rendering-oriented project content and is internally split between UI/rendering support and overlay-facing content.
 
-`RustMIRAGEOLD` — це колекція legacy-коду для anti-cheat досліджень. Містить підсистеми автентифікації, kernel-частини, рендеринг і допоміжні модулі.
+### `rust/`
 
-Приклад структури:
+`rust/` contains:
 
-- `Auth/`: код автентифікації
-- `kernel/`, `KDMapper/`, `bypass/`: низькорівневі дослідження та історичні експерименти
-- `Render/`, `mirage/`, `unity/`: рендеринг і доменна логіка
-- `freetype/`, `src/`: залежності та базовий код
+- `caches/`
 
-### Мета дослідження
+This root-level branch adds another separate implementation/support area to the workspace.
 
-- Архівування legacy-підходів і порівняння версій
-- Аналіз розподілу відповідальностей і зв’язаності модулів
-- Підготовка основи для майбутнього рефакторингу
+### `spotify shi/`
 
-### Відповідність і межі
+`spotify shi/` contains:
 
-Проєкт призначено для архівних досліджень і defensive-обговорень.
+- `curl-for-windows/`
+- `json/`
+- `stuff/`
 
-Ключі, сертифікати, виконувані ланцюги та готові bypass/injection матеріали не публікуються на GitHub. Для обговорення використовуйте офіційний Discord.
+Inside `curl-for-windows/`, the visible nested directories include:
 
----
+- `curl/`
+- `openssl/`
+- `out/`
+- `zlib/`
 
-<a id="vi"></a>
-## Tiếng Việt
+Inside `stuff/`, the visible nested directories include:
 
-`RustMIRAGEOLD` là bộ sưu tập mã legacy cho nghiên cứu anti-cheat. Bao gồm mô-đun xác thực, phần kernel, render và các thành phần hỗ trợ.
+- `.github/`
+- `data/`
+- `deprecated/`
+- `docs/`
+- `stb_image_resize_test/`
+- `tests/`
+- `tools/`
 
-Ví dụ cấu trúc:
+This root-level subtree is one of the broadest side branches in the workspace.
 
-- `Auth/`: mã xác thực
-- `kernel/`, `KDMapper/`, `bypass/`: nghiên cứu mức thấp và mô-đun thử nghiệm lịch sử
-- `Render/`, `mirage/`, `unity/`: render và logic nghiệp vụ
-- `freetype/`, `src/`: phụ thuộc và mã nền tảng
+### `src/`
 
-### Mục tiêu nghiên cứu
+`src/` is present as a traditional source directory at the root. The project keeps `src/` alongside many other top-level trees instead of using it as the only main entry path.
 
-- Lưu trữ cách tiếp cận legacy và so sánh phiên bản
-- Phân tích tách trách nhiệm và mức độ kết dính mô-đun
-- Làm tài liệu tham chiếu cho refactor trong tương lai
+### `unity/`
 
-### Tuân thủ và phạm vi
+`unity/` is another standalone root-level branch. In the current extracted tree, deeper first-level child directories are not shown.
 
-Dự án dùng cho lưu trữ nghiên cứu và thảo luận kỹ thuật phòng thủ.
+### Project Organization
 
-Một số khóa, chứng chỉ, chuỗi thực thi và sản phẩm bypass/injection là thông tin nhạy cảm nên không công khai trên GitHub. Nếu cần trao đổi sâu hơn, vui lòng liên hệ Discord chính thức của chúng tôi.
+The workspace groups together:
 
+- authentication-oriented content
+- a heavily subdivided `bypass/` tree
+- standalone low-level module roots
+- `mirage` / `miragerust` / `rust` parallel branches
+- a rendering-focused root tree
+- bundled support/dependency trees
+- additional preserved work areas such as `spotify shi/`
+
+The directory names define the project map more strongly than a single root application entry point.
+
+### Build and Output Footprint
+
+The workspace keeps local output-oriented directories in multiple places, including:
+
+- `miragerust/x64/`
+- `miragerust/x64/Debug/`
+- `freetype/win64/`
+- `spotify shi/curl-for-windows/out/`
+
+This preserves the shape of a working local archive rather than a minimal source-only tree.
+
+### Recommended Reading Order
+
+Recommended reading order:
+
+1. `Auth/`
+2. `Auth/prot/`
+3. `bypass/`
+4. `bypass/binary/`
+5. `bypass/exploit/`
+6. `bypass/hde/`
+7. `bypass/utils/`
+8. `freetype/`
+9. `freetype/include/`
+10. `kernel/`
+11. `KDMapper/`
+12. `mirage/`
+13. `mirage/loop/`
+14. `miragerust/`
+15. `miragerust/x64/`
+16. `Render/`
+17. `Render/imgui/`
+18. `Render/overlay/`
+19. `rust/`
+20. `rust/caches/`
+21. `src/`
+22. `unity/`
+23. `spotify shi/`
+24. `spotify shi/curl-for-windows/`
+25. `spotify shi/stuff/`
+
+### Summary
+
+`RustMIRAGEOLD` is a multi-root workspace that includes:
+
+- an authentication branch under `Auth/`
+- a subdivided `bypass/` tree
+- separate low-level roots such as `kernel/` and `KDMapper/`
+- parallel `mirage/`, `miragerust/`, and `rust/` branches
+- a rendering tree under `Render/`
+- bundled support content such as `freetype/`
+- an additional broad side branch under `spotify shi/`
+
+<a id="zh"></a>
+## 中文
+
+### 项目概览
+
+`RustMIRAGEOLD` 采用宽型多根目录布局，而不是单一紧凑的源码根目录。
+
+整个项目把多条根级分支、支持库、配套树以及本地保留的工作区内容放进了同一个工作空间。
+
+### 项目作用
+
+从工程层面看，`RustMIRAGEOLD` 更像一个多分支源码归档和工作区。它没有强行把所有内容压进一棵主树，而是在根目录并列保留了多块区域：
+
+- 认证相关内容
+- bypass / 支持分支
+- 低层根目录
+- 渲染相关根目录
+- 替代实现线
+- bundled 支持库
+- 额外的侧向工作区
+
+这种布局适合在一个项目历史或一个工作空间里，同时保留多条方向，而不是把一切收缩成统一结构。
+
+### 整体原理
+
+整个项目采用“按分支隔离”而不是“按单一应用根目录”来组织：
+
+1. 主要关注点被拆成独立的根级目录
+2. `Render/`、`Auth/`、`bypass/` 这类专门子树保留自己的内部拆分
+3. `mirage/`、`miragerust/`、`rust/` 这类替代实现线保持并列
+4. `freetype/`、`spotify shi/` 等支持内容直接嵌在同一个工作区里
+
+最终形成的是一种偏归档式布局：根目录本身就是整个项目最重要的地图。
+
+### 根目录结构
+
+根目录包含：
+
+- `Auth/`
+- `bypass/`
+- `freetype/`
+- `KDMapper/`
+- `kernel/`
+- `mirage/`
+- `miragerust/`
+- `Render/`
+- `rust/`
+- `spotify shi/`
+- `src/`
+- `unity/`
+- `README.md`
+
+这些根级目录共同定义了整个项目的形态。
+
+### `Auth/`
+
+`Auth/` 包含：
+
+- `prot/`
+
+这一分支对应工作区中的认证相关子树。
+
+### `bypass/`
+
+`bypass/` 包含：
+
+- `binary/`
+- `exploit/`
+- `hde/`
+- `utils/`
+
+同时还能看到：
+
+- `binary/bytes.h`
+
+这一分支是项目中内部拆分最明显的根级树之一。
+
+### `freetype/`
+
+`freetype/` 包含：
+
+- `include/`
+- `win64/`
+
+在 `include/` 内部，可见的嵌套目录为：
+
+- `freetype/`
+
+这一子树把 bundled 支持/依赖内容直接放在工作区根部。
+
+### `KDMapper/`
+
+`KDMapper/` 是独立的根级模块区域。在当前提取树中没有展示更深的一级子目录。
+
+### `kernel/`
+
+`kernel/` 是独立的根级低层区域。
+
+### `mirage/`
+
+`mirage/` 包含：
+
+- `loop/`
+
+这一分支在独立的根级区域下保留了自己的内部子树。
+
+### `miragerust/`
+
+`miragerust/` 包含：
+
+- `x64/`
+
+在 `x64/` 内部，可见的嵌套目录为：
+
+- `Debug/`
+
+这一分支保留了自己的本地输出导向子树。
+
+### `Render/`
+
+`Render/` 包含：
+
+- `imgui/`
+- `overlay/`
+
+这一分支明确对应渲染相关项目内容，并且内部继续拆分为 UI/渲染支持区和 overlay 区域。
+
+### `rust/`
+
+`rust/` 包含：
+
+- `caches/`
+
+这一根级分支为工作区增加了另一块独立实现/支持区域。
+
+### `spotify shi/`
+
+`spotify shi/` 包含：
+
+- `curl-for-windows/`
+- `json/`
+- `stuff/`
+
+在 `curl-for-windows/` 内部，可见的嵌套目录包括：
+
+- `curl/`
+- `openssl/`
+- `out/`
+- `zlib/`
+
+在 `stuff/` 内部，可见的嵌套目录包括：
+
+- `.github/`
+- `data/`
+- `deprecated/`
+- `docs/`
+- `stb_image_resize_test/`
+- `tests/`
+- `tools/`
+
+这一根级子树是整个工作区中体量较大的侧向分支之一。
+
+### `src/`
+
+`src/` 以传统源码目录的形式存在于根部，但项目并没有把它作为唯一主入口，而是与许多其他顶层树并列保留。
+
+### `unity/`
+
+`unity/` 是另一棵独立的根级分支。在当前提取树中没有展示更深的一级子目录。
+
+### 项目组织方式
+
+整个工作区把以下内容组合在一起：
+
+- 认证相关内容
+- 内部继续拆分的 `bypass/` 树
+- 独立的低层模块根目录
+- 平行存在的 `mirage` / `miragerust` / `rust` 分支
+- 渲染专用根级树
+- bundled 支持/依赖树
+- 诸如 `spotify shi/` 这样的额外保留工作区
+
+目录名本身比单一主应用入口更能定义整个项目地图。
+
+### 构建与输出痕迹
+
+工作区在多个位置保留了本地输出导向目录，包括：
+
+- `miragerust/x64/`
+- `miragerust/x64/Debug/`
+- `freetype/win64/`
+- `spotify shi/curl-for-windows/out/`
+
+这些目录让整个项目保留了真实本地归档工作树的形态，而不是最小源码树。
+
+### 阅读建议
+
+推荐按下面顺序阅读：
+
+1. `Auth/`
+2. `Auth/prot/`
+3. `bypass/`
+4. `bypass/binary/`
+5. `bypass/exploit/`
+6. `bypass/hde/`
+7. `bypass/utils/`
+8. `freetype/`
+9. `freetype/include/`
+10. `kernel/`
+11. `KDMapper/`
+12. `mirage/`
+13. `mirage/loop/`
+14. `miragerust/`
+15. `miragerust/x64/`
+16. `Render/`
+17. `Render/imgui/`
+18. `Render/overlay/`
+19. `rust/`
+20. `rust/caches/`
+21. `src/`
+22. `unity/`
+23. `spotify shi/`
+24. `spotify shi/curl-for-windows/`
+25. `spotify shi/stuff/`
+
+### 总结
+
+`RustMIRAGEOLD` 是一个多根目录工作区，包含：
+
+- 位于 `Auth/` 下的认证分支
+- 内部继续拆分的 `bypass/` 树
+- 独立的低层根目录，如 `kernel/` 与 `KDMapper/`
+- 平行存在的 `mirage/`、`miragerust/` 与 `rust/` 分支
+- 位于 `Render/` 下的渲染树
+- 位于 `freetype/` 下的 bundled 支持内容
+- 位于 `spotify shi/` 下的额外大型侧向分支
